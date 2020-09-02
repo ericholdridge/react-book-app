@@ -34,17 +34,44 @@ const App = () => {
     ]);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addBook();
-    // Clear the input fields after the user submits the form
+  const editBook = (book) => {
+    setTitle(book.bookTitle);
+    setAuthor(book.bookAuthor);
+    setISBN(book.bookISBN);
+
+    setCurrentBookId(book.bookId);
+  };
+
+  const updateBook = () => {
+    setBooks(
+      books.map((book) =>
+        book.bookId === currentBookId
+          ? { ...books, bookTitle: title, bookAuthor: author, bookISBN: isbn }
+          : book
+      )
+    );
+  };
+
+  const clearInputs = () => {
     setTitle("");
     setAuthor("");
     setISBN("");
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setCurrentBookId(null);
+    console.log(currentBookId);
+    !currentBookId ? addBook() : updateBook();
+  };
+
   const handleRemoveBook = (id) => {
-    setBooks(books.filter((book) => book.bookId !== id))
+    setBooks(books.filter((book) => book.bookId !== id));
+  };
+
+  const cancelEdit = () => {
+    clearInputs();
+    setCurrentBookId(null);
   };
 
   return (
@@ -60,8 +87,13 @@ const App = () => {
           currentBookId={currentBookId}
           setCurrentBookId={setCurrentBookId}
           handleSubmit={handleSubmit}
+          cancelEdit={cancelEdit}
         />
-        <Table books={books} handleRemoveBook={handleRemoveBook} />
+        <Table
+          books={books}
+          handleRemoveBook={handleRemoveBook}
+          editBook={editBook}
+        />
       </Container>
     </div>
   );

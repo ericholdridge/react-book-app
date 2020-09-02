@@ -9,8 +9,8 @@ const Form = ({
   isbn,
   setISBN,
   currentBookId,
-  setCurrentBookId,
   handleSubmit,
+  cancelEdit,
 }) => {
   return (
     <form css={styles} onSubmit={handleSubmit}>
@@ -36,7 +36,10 @@ const Form = ({
         value={isbn}
         onChange={(e) => setISBN(e.target.value)}
       />
-      <button tabIndex="0" type="submit">{currentBookId !== null ? "Update" : "Add"}</button>
+      <button tabIndex="0" type="submit">
+        {currentBookId !== null ? "Update" : "Add"}
+      </button>
+      {currentBookId !== null && <button onClick={cancelEdit}>Cancel</button>}
     </form>
   );
 };

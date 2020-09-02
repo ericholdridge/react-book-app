@@ -1,13 +1,18 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-const TableField = ({ fieldName, settingsField, handleRemoveBook }) => {
+const TableField = ({
+  fieldName,
+  settingsField,
+  handleRemoveBook,
+  editBook,
+}) => {
   return (
     <div css={styles} className="tableField">
       {fieldName}
       {settingsField && (
         <div className="icons">
-          <i className="far fa-edit"></i>
+          <i onClick={editBook} className="far fa-edit"></i>
           <i onClick={handleRemoveBook} className="fas fa-trash"></i>
         </div>
       )}

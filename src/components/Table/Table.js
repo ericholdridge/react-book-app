@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import TableField from "./TableField";
 
-const Table = ({ books, handleRemoveBook }) => {
+const Table = ({ books, handleRemoveBook, editBook }) => {
   return (
     <div css={styles} className="table">
       <div className="tableHeading">
@@ -16,7 +16,11 @@ const Table = ({ books, handleRemoveBook }) => {
           <TableField fieldName={book.bookTitle} />
           <TableField fieldName={book.bookAuthor} />
           <TableField fieldName={book.bookISBN} />
-          <TableField settingsField handleRemoveBook={() => handleRemoveBook(book.bookId)} />
+          <TableField
+            settingsField
+            handleRemoveBook={() => handleRemoveBook(book.bookId)}
+            editBook={() => editBook(book)}
+          />
         </div>
       ))}
     </div>
@@ -36,6 +40,8 @@ const styles = css`
   }
   .tableRow {
     background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
   }
 `;
 
